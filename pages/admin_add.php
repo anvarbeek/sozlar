@@ -1,5 +1,8 @@
 <?php
 include '../include/header.php';
+include '../include/menu.php';
+include '../include/navbar.php';
+include '../db_connect/connection.php';
 ?>
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -22,41 +25,90 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 ?>
-
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper login-page">
+<div class="content-wrapper mt-4">
     <div class="content ">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
-                    <!-- general form elements -->
-
-                    <div class="card card-primary">
+                <div class="col-md-6">
+                    <div class="card card-success">
                         <div class="card-header">
                             <h3 class="card-title">New Admin</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <!-- form start -->
-                        <form method="POST">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Username</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="username" placeholder="Enter Username">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password">
-                                </div>
-                                
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
                             </div>
-                            <!-- /.card-body -->
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Add</button>
+                        </div>
+                        <div class="card-body">
+                            <form action="" method="post">
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input type="text" class="form-control" name="username">
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" class="form-control" name="password">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="form-control btn btn-success" value="Add" >
                             </div>
                         </form>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
+
+                    <!-- /.card-body -->
                 </div>
                 <!-- /.card -->
+
+                <div class="col-md-6">
+                    <!-- /.card -->
+                    <div class="card card-info">
+                        <div class="card-header">
+                            <h3 class="card-title">Tizim loginlari</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Password</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php 
+                                        $sql = "SELECT * FROM login";
+                                        $query = $conn->query($sql);
+
+                                        if($query->num_rows>0){
+                                            while($row=$query->fetch_assoc()){
+                                    ?>
+                                    <tr>
+                                        <td><?= $row['username']?></td>
+                                        <td><?= $row['password']?></td>
+                                        <td class="text-right py-0 align-middle">
+                                            <div class="btn-group btn-group-sm">
+                                                <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                            </div>
+                                        </td>
+                                    <tr>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

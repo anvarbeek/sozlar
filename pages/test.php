@@ -1,6 +1,8 @@
 <?php
 include '../include/header.php';
-$book_id =1;
+include '../include/menu.php';
+include '../include/navbar.php';
+
 
 
 ?>
